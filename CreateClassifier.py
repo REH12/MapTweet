@@ -3,6 +3,9 @@
 
 # In[51]:
 
+# Thanks to http://streamhacker.com/2010/05/10/text-classification-sentiment-analysis-naive-bayes-classifier/
+
+
 #Now use the classifier
 import nltk.classify.util
 from nltk.classify import NaiveBayesClassifier
