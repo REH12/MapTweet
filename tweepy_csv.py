@@ -17,7 +17,7 @@ auth.set_access_token(access_token, access_secret)
 api = tweepy.API(auth)
 
 # Open/Create a file to append data
-csvFile = open('friendtweets.csv', 'a')
+csvFile = open('geotweets.csv', 'a')
 
 #Use csv Writer
 csvWriter = csv.writer(csvFile)
