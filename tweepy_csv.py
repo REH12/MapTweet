@@ -11,11 +11,11 @@ auth.set_access_token(access_token, access_secret)
 api = tweepy.API(auth)
 
 # Open/Create a file to append data
-csvFile = open('friendtweets.csv', 'a')
+csvFile = open('tweets.csv', 'a')
 #Use csv Writer
 csvWriter = csv.writer(csvFile)
 
-for tweet in tweepy.Cursor(api.search,q="#LoseAFriendIn3Words").items():
+for tweet in tweepy.Cursor(api.search,q="#alcoholguidelines").items():
 	if tweet.coordinates != None:
 		print(tweet.created_at, tweet.text, tweet.coordinates)
 		csvWriter.writerow([tweet.created_at, tweet.text.encode('utf-8'), tweet.coordinates])
