@@ -15,7 +15,7 @@ csvFile = open('friendtweets.csv', 'a')
 #Use csv Writer
 csvWriter = csv.writer(csvFile)
 
-for tweet in tweepy.Cursor(api.search,q="#LoseAFriendIn3Words").items():
+for tweet in tweepy.Cursor(api.search, geocode="54.02,-2.04,500km").items():
 	if tweet.coordinates != None:
 		print(tweet.created_at, tweet.text, tweet.coordinates)
 		csvWriter.writerow([tweet.created_at, tweet.text.encode('utf-8'), tweet.coordinates])
