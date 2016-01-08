@@ -1,3 +1,27 @@
+
+####################
+#### Heatmap.py ####
+####################
+
+## INFO ##
+
+# Script to create a heatmap of a list of coordinates
+
+## HOW TO RUN ##
+
+# python Heatmap.py filename
+# e.g. python Heatmap.py coords.txt
+
+## CREATION ##
+
+# James Hickey (University of Bristol) + Software Carpentry Team, January 2016
+
+###
+# Start of script
+###
+
+# import required packages
+
 import numpy as np
 import numpy.random
 import matplotlib.pyplot as plt
@@ -9,30 +33,23 @@ from numpy import *
 from matplotlib.colors import LinearSegmentedColormap
 import sys
 
+# load file
 filename = sys.argv[1]
+
 # create basemap
 my_map = Basemap (projection='merc', lat_0=51.45, lon_0 = -2.583333, resolution = 'l', 
                   area_thresh = 50.0, llcrnrlon=-11, llcrnrlat=49, urcrnrlon=2.5, urcrnrlat =59.5)
 
 my_map.drawcoastlines(linewidth=1.5)
 my_map.drawcountries()
-#my_map.fillcontinents(color='green')
 my_map.drawmapboundary(linewidth=1.5)
 my_map.drawmeridians(arange(-15,5,3),labels=[1,1,1,1])
 my_map.drawparallels(arange(45,60,3),labels=[1,1,1,1])
 
 # load data
 data = numpy.loadtxt(filename, delimiter = ' ')
-exx = data[:,0]
-eyy = data[:,1]
-
-# Generate some test data
-#x = (np.random.rand(5000)*14)-11
-#y = (np.random.rand(5000)*11)+49
-
-# exchange random data for pseudo-real data
-x = exx
-y = eyy
+x = data[:,0]
+y = data[:,1]
 
 # compute appropriate bins to chop up the data:
 db = 1 # bin padding
