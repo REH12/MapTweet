@@ -62,7 +62,7 @@ plt.register_cmap(cmap=custom_map)
 plt.pcolormesh(xs, ys, density, cmap="custom_map")
 
 cbar = plt.colorbar(orientation='horizontal', shrink=0.55, aspect=20, fraction=0.2, pad=0.04)
-cbar.set_label('Random Data',size=10)
+cbar.set_label('Number of Tweets',size=10)
 
 # add map scale
 my_map.drawmapscale(-9,49.75,-9,49.75,300,barstyle='fancy')
