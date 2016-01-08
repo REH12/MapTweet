@@ -1,6 +1,9 @@
 
 # coding: utf-8
 
+#The only part of this code that is not generic is that the input file
+# MUST be called geotweets.csv
+
 # In[263]:
 
 import csv
@@ -9,6 +12,7 @@ import numpy
 
 # In[264]:
 
+#Read in the data
 exampleFile = open('geotweets.csv')
 exampleReader = csv.reader(exampleFile)
 exampleData = list(exampleReader)
@@ -27,10 +31,12 @@ nltk.download('stopwords')
 from nltk.tokenize import RegexpTokenizer
 
 
+#Define function to remove twitter handles using regular expressions
 def ridHash(ortweet):
     tweet = ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)"," ",ortweet).split())
     return(tweet)
 
+#Define function to take the original tweet and remove stopwords and punctuation
 def stripTweet(ortweet):
     tweet = ridHash(ortweet)
     tokenizer = RegexpTokenizer(r'\w+')
@@ -47,6 +53,7 @@ def stripTweet(ortweet):
 
 # In[266]:
 
+#Extract each of the tweets from the csv file and put them in a list
 eachone = []
 i = 0
 for r in range(0,len(exampleData),):
@@ -72,6 +79,7 @@ def word_feats(words):
 
 # In[269]:
 
+#Download the movie review data which will be used for training the classifier
 nltk.download('movie_reviews')
 
 
@@ -89,17 +97,22 @@ posfeats = [(word_feats(movie_reviews.words(fileids=[f])), 'pos') for f in posid
 
 # In[272]:
 
+#Split data into a training and testing set
 trainfeats = negfeats[:750] + posfeats[:750]
 testfeats = negfeats[751:] + posfeats[751:]
 
 
 # In[273]:
 
+#Train the classifier
 classifier = NaiveBayesClassifier.train(trainfeats)
+
+#Note that all the nltk module is AWESOME. As is Jacob from StreamHackers.com for his amazing tutorial.
 
 
 # In[274]:
 
+#Classify the tweets and append them into a list
 results = []
 
 for c in eachone:
@@ -109,6 +122,7 @@ for c in eachone:
 
 # In[278]:
 
+#Count how many tweets in each category (positive or negative)
 counts = Counter(results)
 
 
@@ -119,11 +133,13 @@ print(counts)
 
 # In[305]:
 
+# Turn the values into a list (much easier to use for the next part)
 values = list(counts.values())
 
 
 # In[277]:
 
+#Plot!
 import matplotlib.pyplot as plt
 get_ipython().magic('matplotlib inline')
 
@@ -141,6 +157,11 @@ plt.pie(sizes, labels=labels, colors=colors,
  
 plt.axis('equal')
 plt.show()
+
+#Only a very basic pie chart but you get the idea.
+
+#In theory, it should be relatively easy to reassociate the coordinates with the tweet sentiment, which could then be mapped.
+#No time for this, though.
 
 
 # In[ ]:
